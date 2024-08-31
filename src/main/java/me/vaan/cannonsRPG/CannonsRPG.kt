@@ -64,6 +64,7 @@ class CannonsRPG : JavaPlugin() {
         val pm = this.server.pluginManager
 
         pm.registerEvents(GunpowderLeveler(auraSkills), this)
+        pm.registerEvents(AimingLeveler(auraSkills), this)
 
     }
 
