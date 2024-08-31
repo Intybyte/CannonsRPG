@@ -65,6 +65,7 @@ class CannonsRPG : JavaPlugin() {
 
         pm.registerEvents(GunpowderLeveler(auraSkills), this)
         pm.registerEvents(AimingLeveler(auraSkills), this)
+        pm.registerEvents(FiringLeveler(auraSkills), this)
 
     }
 
