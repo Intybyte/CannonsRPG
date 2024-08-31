@@ -11,10 +11,6 @@ import org.bukkit.event.Listener
 
 class GunpowderLeveler(private val api: AuraSkillsApi) : Listener {
 
-    init {
-        Cooldowns.setCooldown(this::class, 5 * 1000L)
-    }
-
     @EventHandler
     fun gunpowderLoadEvent(event: CannonGunpowderLoadEvent) {
         if (!CannonSkill.GUNNERY.isEnabled) return

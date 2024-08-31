@@ -3,11 +3,14 @@ sources:
     type: cannonsrpg/gunpowder
     multiplier: 1
     xp: 10
+    cooldown: 10
   aiming_cannons:
     type: cannonsrpg/aiming
     multiplier: 1
     xp: 5
+    cooldown: 30
   firing_cannons:
     type: cannonsrpg/firing
     multiplier: 1
     xp: 20
+    cooldown: 5
