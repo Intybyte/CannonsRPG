@@ -4,6 +4,8 @@ import dev.aurelium.auraskills.api.AuraSkillsApi
 import dev.aurelium.auraskills.api.registry.NamespacedRegistry
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.levelers.GunpowderLeveler
+import me.vaan.cannonsRPG.auraSkills.sources.AimingSource
+import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.auraSkills.sources.GunpowderSource
 import me.vaan.cannonsRPG.utils.Storage
 import org.bukkit.plugin.java.JavaPlugin
@@ -36,6 +38,16 @@ class CannonsRPG : JavaPlugin() {
         registry.registerSourceType("gunpowder") { source, context ->
             val multiplier = source.node("multiplier").getDouble(1.0)
             GunpowderSource(context.parseValues(source), multiplier)
+        }
+
+        registry.registerSourceType("aiming") { source, context ->
+            val multiplier = source.node("multiplier").getDouble(1.0)
+            AimingSource(context.parseValues(source), multiplier)
+        }
+
+        registry.registerSourceType("firing") { source, context ->
+            val multiplier = source.node("multiplier").getDouble(1.0)
+            FiringSource(context.parseValues(source), multiplier)
         }
     }
 
