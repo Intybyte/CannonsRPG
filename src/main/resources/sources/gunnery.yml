@@ -1,0 +1,5 @@
+sources:
+  loading_gunpowder:
+    type: cannonsrpg/gunpowder
+    multiplier: 1
+    xp: 10
