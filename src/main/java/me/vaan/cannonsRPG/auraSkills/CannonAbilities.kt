@@ -2,6 +2,7 @@ package me.vaan.cannonsRPG.auraSkills
 
 import dev.aurelium.auraskills.api.ability.CustomAbility
 import dev.aurelium.auraskills.api.registry.NamespacedId
+import dev.aurelium.auraskills.api.user.SkillsUser
 import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.utils.Storage
 
@@ -66,6 +67,10 @@ enum class CannonAbilities(val ability: CustomAbility) {
             .maxLevel(0)
             .build()!!
     );
+
+    fun getValue(user: SkillsUser): Double {
+        return this.ability.getValue(user.getAbilityLevel(this.ability))
+    }
 
     companion object {
         fun loadAbilities() {
