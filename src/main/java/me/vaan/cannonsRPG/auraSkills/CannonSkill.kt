@@ -10,6 +10,8 @@ object CannonSkill {
         .builder(Storage.GUNNERY_KEY)
         .displayName("Gunnery")
         .description("Gunnery increases the proficiency with cannons")
+        .abilities(*(CannonAbilities.entries.map { it.ability }.toTypedArray()))
+        .manaAbility(CannonManaAbilities.STORM_BLAST)
         .item(ItemContext
             .builder()
             .material("gunpowder")
