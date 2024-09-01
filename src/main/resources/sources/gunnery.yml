@@ -12,3 +12,8 @@ sources:
     type: cannonsrpg/firing
     multiplier: 1
     xp: 20
+  damaging_stuff:
+    type: cannonsrpg/damage
+    explosion_multiplier: 1
+    direct_multiplier: 1
+    xp: 2 # xp per damage point
