@@ -1,3 +1,4 @@
+# Only one entry of each type allowed for now
 sources:
   loading_gunpowder:
     type: cannonsrpg/gunpowder
