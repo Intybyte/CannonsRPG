@@ -1,8 +1,12 @@
 skills:
   cannonsrpg/gunnery:
     abilities:
-      -
-    mana_ability: auraskills/replenish
+      - cannonsrpg/ammunition_engineer
+      - cannonsrpg/cannon_proficiency
+      - cannonsrpg/shell_mastery
+      - cannonsrpg/bonus_shell
+      - cannonsrpg/impact_resistance
+    mana_ability: cannonsrpg/storm_blast
     options:
       enabled: true
       max_level: 100
