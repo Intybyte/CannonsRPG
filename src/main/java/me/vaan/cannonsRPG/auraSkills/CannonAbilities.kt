@@ -46,10 +46,22 @@ enum class CannonAbilities(val ability: CustomAbility) {
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "bonus_shell"))
             .displayName("Bonus Shell")
             .description("Once the shell has exploded {value}% of getting another shell")
-            .info("{value}% Shell Retrieval")
+            .info("{value}% Shell Retrieval ")
             .baseValue(1.0)
-            .valuePerLevel(0.10)
+            .valuePerLevel(1.0)
             .unlock(4)
+            .levelUp(5)
+            .maxLevel(0)
+            .build()!!
+    ),
+    IMPACT_RESISTANCE(
+        CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "impact_resistance"))
+            .displayName("Impact Resistance")
+            .description("When being hit by a cannon reduce damage by {value}%")
+            .info("-{value}% Cannon Received Damage ")
+            .baseValue(1.0)
+            .valuePerLevel(1.0)
+            .unlock(5)
             .levelUp(5)
             .maxLevel(0)
             .build()!!

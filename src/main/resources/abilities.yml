@@ -1,0 +1,36 @@
+abilities:
+  cannonsrpg/ammunition_engineer:
+    enabled: true
+    base_value: 1.0
+    value_per_level: 1.0
+    unlock: 1
+    level_up: 5
+    max_level: 0
+  cannonsrpg/cannon_proficiency:
+    enabled: true
+    base_value: 10.0
+    value_per_level: 10.0
+    unlock: 2
+    level_up: 5
+    max_level: 0
+  cannonsrpg/shell_mastery:
+    enabled: true
+    base_value: 2.5
+    value_per_level: 2.5
+    unlock: 3
+    level_up: 5
+    max_level: 0
+  cannonsrpg/bonus_shell:
+    enabled: true
+    base_value: 1.0
+    value_per_level: 1.0
+    unlock: 4
+    level_up: 5
+    max_level: 0
+  cannonsrpg/impact_resistance:
+    enabled: true
+    base_value: 1.0
+    value_per_level: 1.0
+    unlock: 5
+    level_up: 5
+    max_level: 0
