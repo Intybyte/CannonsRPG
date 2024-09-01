@@ -3,9 +3,22 @@ package me.vaan.cannonsRPG.auraSkills
 import dev.aurelium.auraskills.api.ability.CustomAbility
 import dev.aurelium.auraskills.api.mana.CustomManaAbility
 import dev.aurelium.auraskills.api.registry.NamespacedId
+import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.utils.Storage
 
 object CannonAbilities {
+    val AMMUNITION_ENGINEER = CustomAbility
+        .builder(NamespacedId.of(Storage.PLUGIN_NAME, "ammunition_engineer"))
+        .displayName("Ammunition Engineer")
+        .description("Explosion power increased by {value}% when shooting cannons")
+        .info("+{value}% Cannon Explosion Power ")
+        .baseValue(1.0)
+        .valuePerLevel(1.0)
+        .unlock(1)
+        .levelUp(5)
+        .maxLevel(0)
+        .build()!!
+
     val CANNON_PROFICIENCY = CustomAbility
         .builder(NamespacedId.of(Storage.PLUGIN_NAME, "cannon_proficiency"))
         .displayName("Cannon Proficiency")
@@ -30,6 +43,19 @@ object CannonAbilities {
         .maxLevel(0)
         .build()!!
 
+    val BONUS_SHELL = CustomAbility
+        .builder(NamespacedId.of(Storage.PLUGIN_NAME, "bonus_shell"))
+        .displayName("Bonus Shell")
+        .description("Once the shell has exploded {value}% of getting another shell")
+        .info("{value}% Shell Retrieval")
+        .baseValue(1.0)
+        .valuePerLevel(.10)
+        .unlock(4)
+        .levelUp(5)
+        .maxLevel(0)
+        .build()!!
+
+
     val STORM_BLAST = CustomManaAbility
         .builder(NamespacedId.of(Storage.PLUGIN_NAME, "storm_blast"))
         .displayName("Storm Blast")
@@ -40,4 +66,16 @@ object CannonAbilities {
         .levelUp(6)
         .maxLevel(0)
         .build()!!
+
+    fun loadAbilities() {
+        val reg = CannonsRPG.registry()
+
+        reg.registerAbility(AMMUNITION_ENGINEER)
+        reg.registerAbility(CANNON_PROFICIENCY)
+        reg.registerAbility(SHELL_MASTERY)
+        reg.registerAbility(BONUS_SHELL)
+        
+
+        reg.registerManaAbility(STORM_BLAST)
+    }
 }

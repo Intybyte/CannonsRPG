@@ -23,18 +23,33 @@ class CannonsRPG : JavaPlugin() {
         private lateinit var instance: CannonsRPG
         @JvmStatic
         private lateinit var registry: NamespacedRegistry
+
+        fun instance(): CannonsRPG {
+            return instance
+        }
+
+        fun registry(): NamespacedRegistry {
+            return registry
+        }
     }
 
     override fun onEnable() {
         auraSkills = AuraSkillsApi.get()
         instance = this
         registry = auraSkills.useRegistry(Storage.PLUGIN_NAME, dataFolder)
-        saveResource("sources/gunnery.yml", false)
+        saveResources()
 
         registry.registerSkill(CannonSkill.GUNNERY)
 
         registerSourceTypes()
         registerListeners()
+    }
+
+    private fun saveResources() {
+        saveResource("sources/gunnery.yml", false)
+        saveResource("rewards/gunnery.yml", false)
+        saveResource("abilities.yml", false)
+        saveResource("skills.yml", false)
     }
 
     private fun registerSourceTypes() {
@@ -67,9 +82,5 @@ class CannonsRPG : JavaPlugin() {
         pm.registerEvents(AimingLeveler(auraSkills), this)
         pm.registerEvents(FiringLeveler(auraSkills), this)
 
-    }
-
-    fun instance(): CannonsRPG {
-        return instance
     }
 }

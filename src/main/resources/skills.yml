@@ -1,0 +1,10 @@
+skills:
+  cannonsrpg/gunnery:
+    abilities:
+      -
+    mana_ability: auraskills/replenish
+    options:
+      enabled: true
+      max_level: 100
+      check_cancelled: true
+      check_multiplier_permissions: true
