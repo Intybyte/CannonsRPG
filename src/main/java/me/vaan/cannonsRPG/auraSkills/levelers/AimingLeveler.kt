@@ -15,9 +15,10 @@ class AimingLeveler(private val api: AuraSkillsApi) : Listener {
 
     @EventHandler
     fun aimingChange(event: CannonUseEvent) {
+        if(!CannonSkill.GUNNERY.isEnabled) return
         if (event.action != InteractAction.adjustPlayer) return
         val player = event.player
-        if (Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
+        if (!Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
 
         val aimingSource = Utils.firstSource<AimingSource>()
         val xp = aimingSource.xp * aimingSource.getMultiplier()

@@ -14,8 +14,9 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
 
     @EventHandler
     fun onFire(event: CannonFireEvent) {
+        if(!CannonSkill.GUNNERY.isEnabled) return
         val player = event.player
-        if (Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
+        if (!Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
 
         val firingSource = Utils.firstSource<FiringSource>()
         val xp = firingSource.xp * firingSource.getMultiplier()

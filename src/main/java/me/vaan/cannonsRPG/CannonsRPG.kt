@@ -13,7 +13,9 @@ import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.auraSkills.sources.GunpowderSource
 import me.vaan.cannonsRPG.utils.Cooldowns
 import me.vaan.cannonsRPG.utils.Storage
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.logging.Logger
 
 
 class CannonsRPG : JavaPlugin() {
@@ -25,6 +27,10 @@ class CannonsRPG : JavaPlugin() {
         private lateinit var instance: CannonsRPG
         @JvmStatic
         private lateinit var registry: NamespacedRegistry
+        @JvmStatic
+        private lateinit var log: Logger
+        @JvmStatic
+        private var debug: Boolean = false
 
         fun instance(): CannonsRPG {
             return instance
@@ -33,13 +39,24 @@ class CannonsRPG : JavaPlugin() {
         fun registry(): NamespacedRegistry {
             return registry
         }
+
+        fun debug(str: String) {
+            if (debug)
+                log.info(str)
+        }
+
+        fun logger(): Logger {
+            return log
+        }
     }
 
     override fun onEnable() {
         auraSkills = AuraSkillsApi.get()
         instance = this
         registry = auraSkills.useRegistry(Storage.PLUGIN_NAME, dataFolder)
+        log = this.logger
         saveResources()
+
 
         CannonManaAbilities.loadManaAbilities()
         CannonAbilities.loadAbilities()
@@ -54,37 +71,37 @@ class CannonsRPG : JavaPlugin() {
         saveResource("rewards/gunnery.yml", false)
         saveResource("abilities.yml", false)
         saveResource("skills.yml", false)
+        saveResource("mana_abilities.yml", false)
+        saveResource("config.yml", false)
+        debug = config.getBoolean("debug")
     }
 
     private fun registerSourceTypes() {
         registry.registerSourceType("gunpowder") { source, context ->
             val multiplier = source.node("multiplier").getDouble(1.0)
-            val cooldown = source.node("cooldown").getLong(10L) * 1000L
-            Cooldowns.setCooldown(GunpowderLeveler::class, cooldown)
             GunpowderSource(context.parseValues(source), multiplier)
         }
 
         registry.registerSourceType("aiming") { source, context ->
             val multiplier = source.node("multiplier").getDouble(1.0)
-            val cooldown = source.node("cooldown").getLong(30L) * 1000L
-            Cooldowns.setCooldown(AimingLeveler::class, cooldown)
             AimingSource(context.parseValues(source), multiplier)
         }
 
         registry.registerSourceType("firing") { source, context ->
             val multiplier = source.node("multiplier").getDouble(1.0)
-            val cooldown = source.node("cooldown").getLong(5L) * 1000L
-            Cooldowns.setCooldown(FiringLeveler::class, cooldown)
             FiringSource(context.parseValues(source), multiplier)
         }
     }
 
     private fun registerListeners() {
         val pm = this.server.pluginManager
+        Cooldowns.setCooldown(GunpowderLeveler::class,config.getInt("cooldowns.gunpowder_leveler", 10) * 1000L)
+        Cooldowns.setCooldown(AimingLeveler::class,config.getInt("cooldowns.aiming_leveler", 30) * 1000L)
+        Cooldowns.setCooldown(FiringLeveler::class,config.getInt("cooldowns.firing_leveler", 5) * 1000L)
+        Cooldowns.printAllCooldowns()
 
         pm.registerEvents(GunpowderLeveler(auraSkills), this)
         pm.registerEvents(AimingLeveler(auraSkills), this)
         pm.registerEvents(FiringLeveler(auraSkills), this)
-
     }
 }

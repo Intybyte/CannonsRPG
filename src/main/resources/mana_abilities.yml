@@ -1,0 +1,15 @@
+mana_abilities:
+  cannonsrpg/storm_blast:
+    enabled: true
+    base_value: 2.0
+    value_per_level: 0.5
+    base_cooldown: 0
+    cooldown_per_level: 0
+    base_mana_cost: 20
+    mana_cost_per_level: 10
+    unlock: 6
+    level_up: 6
+    max_level: 0
+    enable_message: true
+    enable_sound: true
+    require_sneak: true

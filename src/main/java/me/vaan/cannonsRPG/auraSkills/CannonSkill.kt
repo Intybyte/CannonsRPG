@@ -15,7 +15,7 @@ object CannonSkill {
         .item(ItemContext
             .builder()
             .material("gunpowder")
-            .pos("2,1")
+            .pos("1,2")
             .build())
         .build()!!
 }
