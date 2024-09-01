@@ -2,6 +2,8 @@ package me.vaan.cannonsRPG
 
 import dev.aurelium.auraskills.api.AuraSkillsApi
 import dev.aurelium.auraskills.api.registry.NamespacedRegistry
+import me.vaan.cannonsRPG.auraSkills.CannonAbilities
+import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.levelers.AimingLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.FiringLeveler
@@ -39,6 +41,8 @@ class CannonsRPG : JavaPlugin() {
         registry = auraSkills.useRegistry(Storage.PLUGIN_NAME, dataFolder)
         saveResources()
 
+        CannonManaAbilities.loadManaAbilities()
+        CannonAbilities.loadAbilities()
         registry.registerSkill(CannonSkill.GUNNERY)
 
         registerSourceTypes()
