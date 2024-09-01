@@ -4,3 +4,4 @@ cooldowns:
   gunpowder_leveler: 10
   aiming_leveler: 30
   firing_leveler: 5
+  damage_leveler: 0

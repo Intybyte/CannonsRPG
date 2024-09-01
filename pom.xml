@@ -141,7 +141,7 @@
         <dependency>
             <groupId>com.github.Intybyte</groupId>
             <artifactId>Cannons</artifactId>
-            <version>v3.0.3</version>
+            <version>v3.0.4</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

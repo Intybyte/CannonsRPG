@@ -6,14 +6,15 @@ import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.levelers.AimingLeveler
+import me.vaan.cannonsRPG.auraSkills.levelers.CannonDamageLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.FiringLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.GunpowderLeveler
 import me.vaan.cannonsRPG.auraSkills.sources.AimingSource
+import me.vaan.cannonsRPG.auraSkills.sources.CannonDamageSource
 import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.auraSkills.sources.GunpowderSource
 import me.vaan.cannonsRPG.utils.Cooldowns
 import me.vaan.cannonsRPG.utils.Storage
-import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.logging.Logger
 
@@ -91,6 +92,12 @@ class CannonsRPG : JavaPlugin() {
             val multiplier = source.node("multiplier").getDouble(1.0)
             FiringSource(context.parseValues(source), multiplier)
         }
+
+        registry.registerSourceType("damage") { source, context ->
+            val explosionMultiplier = source.node("explosion_multiplier").getDouble(1.0)
+            val directMultiplier = source.node("direct_multiplier").getDouble(1.0)
+            CannonDamageSource(context.parseValues(source), explosionMultiplier, directMultiplier)
+        }
     }
 
     private fun registerListeners() {
@@ -98,10 +105,12 @@ class CannonsRPG : JavaPlugin() {
         Cooldowns.setCooldown(GunpowderLeveler::class,config.getInt("cooldowns.gunpowder_leveler", 10) * 1000L)
         Cooldowns.setCooldown(AimingLeveler::class,config.getInt("cooldowns.aiming_leveler", 30) * 1000L)
         Cooldowns.setCooldown(FiringLeveler::class,config.getInt("cooldowns.firing_leveler", 5) * 1000L)
+        Cooldowns.setCooldown(CannonDamageLeveler::class, config.getInt("cooldowns.damage_leveler", 0) * 1000L)
         Cooldowns.printAllCooldowns()
 
         pm.registerEvents(GunpowderLeveler(auraSkills), this)
         pm.registerEvents(AimingLeveler(auraSkills), this)
         pm.registerEvents(FiringLeveler(auraSkills), this)
+        pm.registerEvents(CannonDamageLeveler(auraSkills), this)
     }
 }
