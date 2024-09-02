@@ -25,14 +25,14 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
 
         if (CannonAbilities.IMPACT_RESISTANCE.ability.isEnabled && event.target is Player) {
             val targetSkill = api.getUser((event.target as Player).uniqueId)
-            val damageDecrease = 1.0 - CannonAbilities.IMPACT_RESISTANCE.getValue(targetSkill)
+            val damageDecrease = 1.0 - CannonAbilities.IMPACT_RESISTANCE.getValue(targetSkill) / 100.0
             CannonsRPG.debug("Damage Reduction: $damageDecrease")
             event.damage *= damageDecrease
         }
 
         val skillPlayer = api.getUser(player)
         if (CannonAbilities.SHELL_MASTERY.ability.isEnabled) {
-            val damageIncrease = 1.0 + CannonAbilities.SHELL_MASTERY.getValue(skillPlayer)
+            val damageIncrease = 1.0 + CannonAbilities.SHELL_MASTERY.getValue(skillPlayer) / 100.0
             CannonsRPG.debug("Damage Increase: $damageIncrease")
             event.damage *= damageIncrease
         }

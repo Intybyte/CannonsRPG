@@ -16,7 +16,7 @@ class ProjectileListener(private val api: AuraSkillsApi) : Listener {
         val skillUser = api.getUser(playerUUID)
 
         if (CannonAbilities.BONUS_SHELL.ability.isEnabled) {
-            val percentage = CannonAbilities.BONUS_SHELL.getValue(skillUser)
+            val percentage = CannonAbilities.BONUS_SHELL.getValue(skillUser) / 100.0
             if (Math.random() <= percentage) {
                 CannonsRPG.debug("Refunded ammo to ${player.name}")
                 val stack = event.projectile.loadingItem.toItemStack(1)
