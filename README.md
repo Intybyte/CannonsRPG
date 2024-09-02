@@ -11,4 +11,4 @@ cannons, the current skills are:
 - Impact Resistance >>> When being hit by a cannon reduce damage
 
 Mana skill is
-- Storm Blast >>> Summons a lightning that deal {value} damage in a 5x5 area of cannon hit, activated by right clicking on gunpowder (Yet to add)
+- Storm Blast >>> Summons a lightning that deal {value} damage in a 5x5 area of cannon hit, activated by shift right clicking on gunpowder (Yet to add)
