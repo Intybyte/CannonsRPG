@@ -24,7 +24,7 @@ class ProjectileListener(private val api: AuraSkillsApi) : Listener {
 
         if (CannonAbilities.AMMUNITION_ENGINEER.ability.isEnabled) {
             val tempNew = event.projectile.clone()
-            tempNew.explosionPower *= (1.0 + CannonAbilities.AMMUNITION_ENGINEER.getValue(skillUser)) as Float
+            tempNew.explosionPower *= (1.0 + CannonAbilities.AMMUNITION_ENGINEER.getValue(skillUser)).toFloat()
         }
     }
 }
