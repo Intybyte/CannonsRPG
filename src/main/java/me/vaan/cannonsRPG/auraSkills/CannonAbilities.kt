@@ -7,11 +7,11 @@ import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.utils.Storage
 
 enum class CannonAbilities(val ability: CustomAbility) {
-    AMMUNITION_ENGINEER(
-        CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "ammunition_engineer"))
-            .displayName("Ammunition Engineer")
-            .description("Explosion power increased by {value}% when shooting cannons")
-            .info("+{value}% Cannon Explosion Power ")
+    DOUBLE_SHOT(
+        CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "double_shot"))
+            .displayName("Double Shot")
+            .description("There is a {value}% chance of shooting another projectile")
+            .info("{value}% Double Shot ")
             .baseValue(1.0)
             .valuePerLevel(1.0)
             .unlock(1)

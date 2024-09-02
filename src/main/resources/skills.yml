@@ -1,7 +1,7 @@
 skills:
   cannonsrpg/gunnery:
     abilities:
-      - cannonsrpg/ammunition_engineer
+      - cannonsrpg/double_shot
       - cannonsrpg/cannon_proficiency
       - cannonsrpg/shell_mastery
       - cannonsrpg/bonus_shell

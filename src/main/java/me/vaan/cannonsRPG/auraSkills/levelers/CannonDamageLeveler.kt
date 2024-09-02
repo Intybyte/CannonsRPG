@@ -3,6 +3,7 @@ package me.vaan.cannonsRPG.auraSkills.levelers
 import at.pavlov.cannons.Enum.DamageType
 import at.pavlov.cannons.event.CannonDamageEvent
 import dev.aurelium.auraskills.api.AuraSkillsApi
+import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.sources.CannonDamageSource
@@ -19,17 +20,19 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
     fun onFire(event: CannonDamageEvent) {
         val player = event.cannonball.shooterUID
         if (!CannonSkill.GUNNERY.isEnabled) return
-        if (Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
+        if (!Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
 
         if (CannonAbilities.IMPACT_RESISTANCE.ability.isEnabled && event.target is Player) {
             val targetSkill = api.getUser((event.target as Player).uniqueId)
             val damageDecrease = 1.0 - CannonAbilities.IMPACT_RESISTANCE.getValue(targetSkill)
+            CannonsRPG.debug("Damage Reduction: $damageDecrease")
             event.damage *= damageDecrease
         }
 
         val skillPlayer = api.getUser(player)
         if (CannonAbilities.SHELL_MASTERY.ability.isEnabled) {
             val damageIncrease = 1.0 + CannonAbilities.SHELL_MASTERY.getValue(skillPlayer)
+            CannonsRPG.debug("Damage Increase: $damageIncrease")
             event.damage *= damageIncrease
         }
 
