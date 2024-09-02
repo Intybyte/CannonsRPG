@@ -5,6 +5,7 @@ import dev.aurelium.auraskills.api.registry.NamespacedRegistry
 import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
+import me.vaan.cannonsRPG.auraSkills.ProjectileListener
 import me.vaan.cannonsRPG.auraSkills.levelers.AimingLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.CannonDamageLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.FiringLeveler
@@ -111,5 +112,6 @@ class CannonsRPG : JavaPlugin() {
         pm.registerEvents(AimingLeveler(auraSkills), this)
         pm.registerEvents(FiringLeveler(auraSkills), this)
         pm.registerEvents(CannonDamageLeveler(auraSkills), this)
+        pm.registerEvents(ProjectileListener(auraSkills), this)
     }
 }
