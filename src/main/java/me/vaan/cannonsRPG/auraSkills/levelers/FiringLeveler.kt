@@ -11,6 +11,7 @@ import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.utils.Cooldowns
+import me.vaan.cannonsRPG.utils.Storage
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -38,10 +39,11 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
 
             if (Math.random() <= percentage) {
                 val proj = cannon.loadedProjectile
+                val bukkitPlayer = Bukkit.getPlayer(player)!!
+                bukkitPlayer.sendMessage(Storage.PREFIX + "Double shot activated!")
 
                 object : BukkitRunnable() {
                     override fun run() {
-                        val bukkitPlayer = Bukkit.getPlayer(player)!!
                         fire(proj, bukkitPlayer, cannon, ProjectileCause.PlayerFired)
                     }
                 }.runTaskLater(CannonsRPG.instance(), 40L + (proj.automaticFiringDelay).toLong() * 20L)
