@@ -58,7 +58,6 @@ class CannonsRPG : JavaPlugin() {
         log = this.logger
         saveResources()
 
-
         CannonManaAbilities.loadManaAbilities()
         CannonAbilities.loadAbilities()
         registry.registerSkill(CannonSkill.GUNNERY)

@@ -9,6 +9,7 @@ import me.vaan.cannonsRPG.auraSkills.sources.CannonDamageSource
 import me.vaan.cannonsRPG.utils.Cooldowns
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
@@ -20,18 +21,26 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
         if (!CannonSkill.GUNNERY.isEnabled) return
         if (Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
 
-        val skillPlayer = api.getUser(player)
+        if (CannonAbilities.IMPACT_RESISTANCE.ability.isEnabled && event.target is Player) {
+            val targetSkill = api.getUser((event.target as Player).uniqueId)
+            val damageDecrease = 1.0 - CannonAbilities.IMPACT_RESISTANCE.getValue(targetSkill)
+            event.damage *= damageDecrease
+        }
 
-        if (CannonAbilities.CANNON_PROFICIENCY.ability.isEnabled) {
-            val damageIncrease = 1.0 + CannonAbilities.CANNON_PROFICIENCY.getValue(skillPlayer)
+        val skillPlayer = api.getUser(player)
+        if (CannonAbilities.SHELL_MASTERY.ability.isEnabled) {
+            val damageIncrease = 1.0 + CannonAbilities.SHELL_MASTERY.getValue(skillPlayer)
             event.damage *= damageIncrease
         }
 
         val firingSource = Utils.firstSource<CannonDamageSource>()
         var xp = firingSource.xp * event.damage * event.reduction
 
-        xp *= if (event.type == DamageType.DIRECT)
-                firingSource.getDirectMultiplier() else firingSource.getExplosionMultiplier()
+        xp *= when (event.type) {
+            DamageType.DIRECT -> firingSource.getDirectMultiplier()
+            DamageType.EXPLOSION -> firingSource.getExplosionMultiplier()
+            else -> 1.0
+        }
 
 
         skillPlayer.addSkillXp(CannonSkill.GUNNERY, xp)
