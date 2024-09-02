@@ -15,8 +15,8 @@ abilities:
     max_level: 0
   cannonsrpg/shell_mastery:
     enabled: true
-    base_value: 2.5
-    value_per_level: 2.5
+    base_value: 2.0
+    value_per_level: 2.0
     unlock: 3
     level_up: 5
     max_level: 0

@@ -16,8 +16,8 @@ class StormBlastToggler(private val api: AuraSkillsApi) : Listener {
     }
 
     @EventHandler
-    fun onGunpowderShiftRMB(event: PlayerInteractEvent) {
-        if (!event.action.isRightClick) return
+    fun onGunpowderShiftLMB(event: PlayerInteractEvent) {
+        if (!event.action.isLeftClick) return
         if(!CannonManaAbilities.STORM_BLAST.isEnabled) return
         if(!CannonSkill.GUNNERY.isEnabled) return
 
@@ -29,8 +29,7 @@ class StormBlastToggler(private val api: AuraSkillsApi) : Listener {
         val level = skillPlayer.getManaAbilityLevel(CannonManaAbilities.STORM_BLAST)
         if (level == 0) return
 
-        activatedStormBlast.putIfAbsent(player.name, true)
-        activatedStormBlast[player.name] = !activatedStormBlast[player.name]!!
+        activatedStormBlast[player.name] = !(activatedStormBlast[player.name] ?: false)
         player.sendMessage(Storage.PREFIX + "§7Storm Blast is now " + if(activatedStormBlast[player.name]!!) "enabled" else "disabled")
     }
 
