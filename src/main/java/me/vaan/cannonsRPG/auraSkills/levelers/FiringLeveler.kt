@@ -30,16 +30,18 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
     fun onFire(event: CannonFireEvent) {
         if(!CannonSkill.GUNNERY.isEnabled) return
         val player = event.player
+        val bukkitPlayer = Bukkit.getPlayer(player) ?: return
 
         val skillPlayer = api.getUser(player)
 
-        val cannon = event.cannon
+
         if (CannonAbilities.DOUBLE_SHOT.ability.isEnabled) {
             val percentage = CannonAbilities.DOUBLE_SHOT.getValue(skillPlayer)
 
             if (Math.random() <= percentage) {
+                val cannon = event.cannon
                 val proj = cannon.loadedProjectile
-                val bukkitPlayer = Bukkit.getPlayer(player)!!
+
                 bukkitPlayer.sendMessage(Storage.PREFIX + "Double shot activated!")
 
                 object : BukkitRunnable() {
@@ -50,7 +52,7 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
             }
         }
 
-        if (!Cooldowns.checkCooldown(this::class, Bukkit.getPlayer(player)!!.name)) return
+        if (!Cooldowns.checkCooldown(this::class, bukkitPlayer.name)) return
 
         val firingSource = Utils.firstSource<FiringSource>()
         val xp = firingSource.xp * firingSource.getMultiplier()

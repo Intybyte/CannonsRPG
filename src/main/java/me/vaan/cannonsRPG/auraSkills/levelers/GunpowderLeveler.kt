@@ -14,7 +14,7 @@ class GunpowderLeveler(private val api: AuraSkillsApi) : Listener {
     @EventHandler
     fun gunpowderLoadEvent(event: CannonGunpowderLoadEvent) {
         if(!CannonSkill.GUNNERY.isEnabled) return
-        val player = event.player
+        val player = event.player ?: return
         if (!Cooldowns.checkCooldown(this::class, player.name)) return
 
         val gunpowderSource = Utils.firstSource<GunpowderSource>()
