@@ -25,12 +25,15 @@ class StormImpactListener(private val api: AuraSkillsApi) : Listener {
         val manaCost = CannonManaAbilities.STORM_BLAST.getManaCost(level)
         val skillDamage = CannonManaAbilities.STORM_BLAST.getValue(level)
 
+        val impact = event.impactLocation
+        val entityList = impact.getNearbyLivingEntities(5.0,20.0,5.0)
+        if (entityList.isEmpty()) return
+
         if (!skillPlayer.consumeMana(manaCost)) return
 
-        val impact = event.impactLocation
         impact.world.strikeLightningEffect(impact)
 
-        for (entity in impact.getNearbyLivingEntities(5.0,20.0,5.0)) {
+        for (entity in entityList) {
             val damage: Double
             if (entity is HumanEntity) {
                 ArmorCalculationUtil.reduceArmorDurability(entity)
