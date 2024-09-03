@@ -4,16 +4,24 @@ sources:
     type: cannonsrpg/gunpowder
     multiplier: 1
     xp: 10
+    menu_item:
+      material: gunpowder
   aiming_cannons:
     type: cannonsrpg/aiming
     multiplier: 1
     xp: 5
+    menu_item:
+      material: clock
   firing_cannons:
     type: cannonsrpg/firing
     multiplier: 1
     xp: 20
+    menu_item:
+      material: torch
   damaging_stuff:
     type: cannonsrpg/damage
     explosion_multiplier: 1
     direct_multiplier: 1
     xp: 2 # xp per damage point
+    menu_item:
+      material: iron_sword
