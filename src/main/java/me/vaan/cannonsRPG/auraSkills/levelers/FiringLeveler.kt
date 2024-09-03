@@ -34,7 +34,6 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
 
         val skillPlayer = api.getUser(player)
 
-
         if (CannonAbilities.DOUBLE_SHOT.ability.isEnabled) {
             val percentage = CannonAbilities.DOUBLE_SHOT.getValue(skillPlayer) / 100.0
 

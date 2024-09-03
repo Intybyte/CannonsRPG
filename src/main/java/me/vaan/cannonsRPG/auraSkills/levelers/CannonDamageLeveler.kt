@@ -21,7 +21,6 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
         val player = event.cannonball.shooterUID
         if (!CannonSkill.GUNNERY.isEnabled) return
         val bukkitPlayer = Bukkit.getPlayer(player) ?: return
-        if (!Cooldowns.checkCooldown(this::class, bukkitPlayer.name)) return
 
         if (CannonAbilities.IMPACT_RESISTANCE.ability.isEnabled && event.target is Player) {
             val targetSkill = api.getUser((event.target as Player).uniqueId)
@@ -37,6 +36,7 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
             event.damage *= damageIncrease
         }
 
+        if (!Cooldowns.checkCooldown(this::class, bukkitPlayer.name)) return
         val firingSource = Utils.firstSource<CannonDamageSource>()
         var xp = firingSource.xp * event.damage * event.reduction
 
