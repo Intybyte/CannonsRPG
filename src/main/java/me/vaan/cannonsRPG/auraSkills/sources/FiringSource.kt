@@ -2,6 +2,7 @@ package me.vaan.cannonsRPG.auraSkills.sources
 
 import dev.aurelium.auraskills.api.source.CustomSource
 import dev.aurelium.auraskills.api.source.SourceValues
+import java.util.*
 
 class FiringSource : CustomSource {
     private val sourceValues: SourceValues
@@ -14,5 +15,9 @@ class FiringSource : CustomSource {
 
     fun getMultiplier(): Double {
         return multiplier
+    }
+
+    override fun getDisplayName(locale: Locale?): String? {
+        return "Fire Cannons"
     }
 }
