@@ -16,14 +16,6 @@ class CannonFireRefund(private val api: AuraSkillsApi) : Listener {
         val player = Bukkit.getPlayer(playerUUID) ?: return
         val skillUser = api.getUser(playerUUID)
 
-        if (CannonAbilities.BONUS_SHELL.ability.isEnabled) {
-            val percentage = CannonAbilities.BONUS_SHELL.getValue(skillUser) / 100.0
-            if (Math.random() <= percentage) {
-                CannonsRPG.debug("Refunded ammo to ${player.name}")
-
-                val stack = event.cannon.loadedProjectile.loadingItem.toItemStack(1)
-                player.inventory.addItem(stack)
-            }
-        }
+        CannonAbilities.BONUS_SHELL.callHandler(player, event.cannon.loadedProjectile.loadingItem.toItemStack(1))
     }
 }

@@ -4,7 +4,10 @@ import dev.aurelium.auraskills.api.ability.CustomAbility
 import dev.aurelium.auraskills.api.registry.NamespacedId
 import dev.aurelium.auraskills.api.user.SkillsUser
 import me.vaan.cannonsRPG.CannonsRPG
+import me.vaan.cannonsRPG.auraSkills.handlers.bonusShellHandler
 import me.vaan.cannonsRPG.auraSkills.handlers.doubleShotHandler
+import me.vaan.cannonsRPG.auraSkills.handlers.impactResistanceHandler
+import me.vaan.cannonsRPG.auraSkills.handlers.shellMasteryHandler
 import me.vaan.cannonsRPG.utils.Storage
 import org.bukkit.entity.Player
 
@@ -46,7 +49,7 @@ enum class CannonAbilities(val ability: CustomAbility, private val handler: Abil
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-            ,null),
+            ,::shellMasteryHandler),
     BONUS_SHELL(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "bonus_shell"))
             .displayName("Bonus Shell")
@@ -58,7 +61,7 @@ enum class CannonAbilities(val ability: CustomAbility, private val handler: Abil
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-            , null),
+            , ::bonusShellHandler),
     IMPACT_RESISTANCE(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "impact_resistance"))
             .displayName("Impact Resistance")
@@ -70,7 +73,7 @@ enum class CannonAbilities(val ability: CustomAbility, private val handler: Abil
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-            , null);
+            , ::impactResistanceHandler);
 
     fun callHandler(player: Player, vararg objects: Any) {
         this.handler(this.ability, player, arrayOf(objects))
