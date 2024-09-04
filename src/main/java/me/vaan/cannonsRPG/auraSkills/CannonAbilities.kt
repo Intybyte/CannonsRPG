@@ -4,9 +4,13 @@ import dev.aurelium.auraskills.api.ability.CustomAbility
 import dev.aurelium.auraskills.api.registry.NamespacedId
 import dev.aurelium.auraskills.api.user.SkillsUser
 import me.vaan.cannonsRPG.CannonsRPG
+import me.vaan.cannonsRPG.auraSkills.handlers.doubleShotHandler
 import me.vaan.cannonsRPG.utils.Storage
+import org.bukkit.entity.Player
 
-enum class CannonAbilities(val ability: CustomAbility) {
+typealias AbilityHandler = (CustomAbility, Player, Array<Any>) -> Unit
+
+enum class CannonAbilities(val ability: CustomAbility, private val handler: AbilityHandler) {
     DOUBLE_SHOT(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "double_shot"))
             .displayName("Double Shot")
@@ -18,7 +22,7 @@ enum class CannonAbilities(val ability: CustomAbility) {
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-    ),
+            , ::doubleShotHandler),
     CANNON_PROFICIENCY(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "cannon_proficiency"))
             .displayName("Cannon Proficiency")
@@ -30,7 +34,7 @@ enum class CannonAbilities(val ability: CustomAbility) {
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-    ),
+            , null),
     SHELL_MASTERY(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "shell_mastery"))
             .displayName("Shell Mastery")
@@ -42,7 +46,7 @@ enum class CannonAbilities(val ability: CustomAbility) {
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-    ),
+            ,null),
     BONUS_SHELL(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "bonus_shell"))
             .displayName("Bonus Shell")
@@ -54,7 +58,7 @@ enum class CannonAbilities(val ability: CustomAbility) {
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-    ),
+            , null),
     IMPACT_RESISTANCE(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "impact_resistance"))
             .displayName("Impact Resistance")
@@ -66,7 +70,11 @@ enum class CannonAbilities(val ability: CustomAbility) {
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-    );
+            , null);
+
+    fun callHandler(player: Player, vararg objects: Any) {
+        this.handler(this.ability, player, arrayOf(objects))
+    }
 
     fun getValue(user: SkillsUser): Double {
         return this.ability.getValue(user.getAbilityLevel(this.ability))
