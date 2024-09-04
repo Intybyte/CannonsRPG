@@ -1,7 +1,6 @@
 package me.vaan.cannonsRPG.utils
 
 import me.vaan.cannonsRPG.CannonsRPG
-import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import kotlin.reflect.KClass
 
@@ -17,7 +16,7 @@ object Cooldowns {
         val cooldown = cooldowns[clazz]!!
         val playerTime = getPlayer(clazz, playerName)
         val current = System.currentTimeMillis()
-        Bukkit.getLogger().info("PlayerTime: $playerTime Cooldown: $cooldown Current: $current")
+        CannonsRPG.debug("PlayerTime: $playerTime Cooldown: $cooldown Current: $current")
 
         if (playerTime == null || playerTime + cooldown <= current) {
             setPlayer(clazz, playerName)
