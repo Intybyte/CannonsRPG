@@ -2,7 +2,6 @@ package me.vaan.cannonsRPG.auraSkills.sources
 
 import dev.aurelium.auraskills.api.source.CustomSource
 import dev.aurelium.auraskills.api.source.SourceValues
-import java.util.*
 
 class CannonDamageSource : CustomSource {
     private val sourceValues: SourceValues
@@ -21,9 +20,5 @@ class CannonDamageSource : CustomSource {
 
     fun getDirectMultiplier() : Double {
         return directMultiplier
-    }
-
-    override fun getDisplayName(locale: Locale?): String? {
-        return "Deal Damage with Cannons"
     }
 }
