@@ -34,7 +34,7 @@ enum class CannonAbilities(val ability: CustomAbility, private val handler: Abil
             .levelUp(5)
             .maxLevel(0)
             .build()!!
-            , null),
+            , { _, _, _ ->  }), //do absolutely nothing
     SHELL_MASTERY(
         CustomAbility.builder(NamespacedId.of(Storage.PLUGIN_NAME, "shell_mastery"))
             .displayName("Shell Mastery")
