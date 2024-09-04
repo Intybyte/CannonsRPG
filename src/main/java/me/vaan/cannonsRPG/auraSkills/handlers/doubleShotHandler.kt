@@ -4,11 +4,10 @@ import at.pavlov.cannons.Cannons
 import at.pavlov.cannons.Enum.ProjectileCause
 import at.pavlov.cannons.cannon.Cannon
 import at.pavlov.cannons.projectile.ProjectileProperties
-import dev.aurelium.auraskills.api.AuraSkillsApi
 import dev.aurelium.auraskills.api.ability.CustomAbility
 import me.vaan.cannonsRPG.CannonsRPG
-import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.utils.Storage
+import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile
@@ -19,8 +18,7 @@ import kotlin.math.max
 
 fun doubleShotHandler(ability: CustomAbility, player: Player, array: Array<Any>?) {
     if (!ability.isEnabled) return
-    val skillPlayer = AuraSkillsApi.get().getUser(player.uniqueId)
-    val percentage = CannonAbilities.DOUBLE_SHOT.getValue(skillPlayer) / 100.0
+    val percentage = Utils.getSkillValue(player, ability) / 100.0
 
     if (Math.random() > percentage) return
 
