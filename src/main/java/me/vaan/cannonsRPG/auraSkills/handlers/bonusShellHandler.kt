@@ -6,7 +6,7 @@ import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-fun bonusShellHandler(ability: CustomAbility, player: Player, array: Array<Any>?) {
+fun bonusShellHandler(ability: CustomAbility, player: Player, array: Array<out Any>?) {
     val refund = array!![0] as ItemStack
 
     if (!ability.isEnabled) return

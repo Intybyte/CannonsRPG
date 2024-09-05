@@ -6,7 +6,7 @@ import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.entity.Player
 
-fun shellMasteryHandler(ability: CustomAbility, player: Player, array: Array<Any>?) {
+fun shellMasteryHandler(ability: CustomAbility, player: Player, array: Array<out Any>?) {
     if (!ability.isEnabled) return
     val event = array!![0] as CannonDamageEvent
 

@@ -14,6 +14,6 @@ class CannonFireRefund(private val api: AuraSkillsApi) : Listener {
         val playerUUID = event.player
         val player = Bukkit.getPlayer(playerUUID) ?: return
 
-        CannonAbilities.BONUS_SHELL.callHandler(player, event.cannon.loadedProjectile.loadingItem.toItemStack(1))
+        CannonAbilities.BONUS_SHELL.callHandler(player, event.cannon.loadedProjectile.loadingItem.toItemStack(1) as Any)
     }
 }

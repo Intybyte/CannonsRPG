@@ -16,7 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import kotlin.math.max
 
-fun doubleShotHandler(ability: CustomAbility, player: Player, array: Array<Any>?) {
+fun doubleShotHandler(ability: CustomAbility, player: Player, array: Array<out Any>?) {
     if (!ability.isEnabled) return
     val percentage = Utils.getSkillValue(player, ability) / 100.0
 

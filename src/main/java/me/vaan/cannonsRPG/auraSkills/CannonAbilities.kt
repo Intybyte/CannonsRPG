@@ -11,7 +11,7 @@ import me.vaan.cannonsRPG.auraSkills.handlers.shellMasteryHandler
 import me.vaan.cannonsRPG.utils.Storage
 import org.bukkit.entity.Player
 
-typealias AbilityHandler = (CustomAbility, Player, Array<Any>) -> Unit
+typealias AbilityHandler = (CustomAbility, Player, Array<out Any>) -> Unit
 
 enum class CannonAbilities(val ability: CustomAbility, private val handler: AbilityHandler) {
     DOUBLE_SHOT(
@@ -76,7 +76,7 @@ enum class CannonAbilities(val ability: CustomAbility, private val handler: Abil
             , ::impactResistanceHandler);
 
     fun callHandler(player: Player, vararg objects: Any) {
-        this.handler(this.ability, player, arrayOf(objects))
+        this.handler(this.ability, player, objects)
     }
 
     fun getValue(user: SkillsUser): Double {

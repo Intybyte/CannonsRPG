@@ -6,7 +6,7 @@ import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.entity.Player
 
-fun impactResistanceHandler(ability: CustomAbility, player: Player, array: Array<Any>?) {
+fun impactResistanceHandler(ability: CustomAbility, player: Player, array: Array<out Any>?) {
     val event = array!![0] as CannonDamageEvent
 
     if (!ability.isEnabled || event.target !is Player) return
