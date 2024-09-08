@@ -18,6 +18,7 @@ import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.auraSkills.sources.GunpowderSource
 import me.vaan.cannonsRPG.utils.Cooldowns
 import me.vaan.cannonsRPG.utils.Storage
+import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.logging.Logger
 
@@ -67,6 +68,7 @@ class CannonsRPG : JavaPlugin() {
 
         registerSourceTypes()
         registerListeners()
+        Metrics(this,23294)
     }
 
     private fun saveResources() {
