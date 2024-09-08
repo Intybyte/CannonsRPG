@@ -12,3 +12,11 @@ cannons, the current skills are:
 
 Mana skill is
 - Storm Blast >>> Summons a lightning that deal {value} damage in a 5x5 area of cannon hit, activated by shift left-clicking on gunpowder
+
+The xp sources are:
+- Aiming (with a configurable cooldown)
+- Gunpowder Loading (with a configurable cooldown)
+- Firing (with a configurable cooldown)
+- Cannon damage (multiplicator for direct and explosion damage)
+
+All settings like xp and abilities can be edited inside the CannonsRPG folder
