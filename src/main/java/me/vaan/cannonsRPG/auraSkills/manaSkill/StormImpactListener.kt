@@ -3,6 +3,7 @@ package me.vaan.cannonsRPG.auraSkills.manaSkill
 import at.pavlov.cannons.event.ProjectileImpactEvent
 import at.pavlov.cannons.utils.ArmorCalculationUtil
 import dev.aurelium.auraskills.api.AuraSkillsApi
+import dev.aurelium.auraskills.api.event.mana.ManaAbilityActivateEvent
 import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import org.bukkit.Bukkit
 import org.bukkit.entity.HumanEntity
@@ -30,6 +31,9 @@ class StormImpactListener(private val api: AuraSkillsApi) : Listener {
         if (entityList.isEmpty()) return
 
         if (!skillPlayer.consumeMana(manaCost)) return
+
+        val callEvent = ManaAbilityActivateEvent(player, skillPlayer, CannonManaAbilities.STORM_BLAST, 0, manaCost)
+        Bukkit.getServer().pluginManager.callEvent(callEvent)
 
         impact.world.strikeLightningEffect(impact)
 
