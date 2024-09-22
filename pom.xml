@@ -30,6 +30,12 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>me.vaan</shadedPattern>
                         </relocation>
+                        <!-- Not needed in my case but keeping it in here
+                        <relocation>
+                            <pattern>me.vaan</pattern>
+                            <shadedPattern>me.vaan</shadedPattern>
+                        </relocation>
+                        -->
                     </relocations>
                 </configuration>
                 <executions>
@@ -156,6 +162,12 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Intybyte</groupId>
+            <artifactId>TimeUtils</artifactId>
+            <version>83c4e7497d</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

@@ -2,10 +2,10 @@ package me.vaan.cannonsRPG.auraSkills.levelers
 
 import at.pavlov.cannons.event.CannonFireEvent
 import dev.aurelium.auraskills.api.AuraSkillsApi
+import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
-import me.vaan.cannonsRPG.utils.Cooldowns
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
@@ -23,7 +23,7 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
 
         CannonAbilities.DOUBLE_SHOT.callHandler(bukkitPlayer, event.cannon)
 
-        if (!Cooldowns.checkCooldown(this::class, bukkitPlayer.name)) return
+        if (!CannonsRPG.cooldown().check("FiringLeveler", bukkitPlayer.name)) return
 
         val firingSource = Utils.firstSource<FiringSource>()
         val xp = firingSource.xp * firingSource.getMultiplier()

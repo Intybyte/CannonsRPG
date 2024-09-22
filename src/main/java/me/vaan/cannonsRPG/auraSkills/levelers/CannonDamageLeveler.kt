@@ -3,10 +3,10 @@ package me.vaan.cannonsRPG.auraSkills.levelers
 import at.pavlov.cannons.Enum.DamageType
 import at.pavlov.cannons.event.CannonDamageEvent
 import dev.aurelium.auraskills.api.AuraSkillsApi
+import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.sources.CannonDamageSource
-import me.vaan.cannonsRPG.utils.Cooldowns
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
@@ -25,7 +25,7 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
         val skillPlayer = api.getUser(player)
         CannonAbilities.SHELL_MASTERY.callHandler(bukkitPlayer, event)
 
-        if (!Cooldowns.checkCooldown(this::class, bukkitPlayer.name)) return
+        if (!CannonsRPG.cooldown().check("CannonDamageLeveler", bukkitPlayer.name)) return
         val firingSource = Utils.firstSource<CannonDamageSource>()
         var xp = firingSource.xp * event.damage * event.reduction
 
@@ -34,7 +34,6 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
             DamageType.EXPLOSION -> firingSource.getExplosionMultiplier()
             else -> 1.0
         }
-
 
         skillPlayer.addSkillXp(CannonSkill.GUNNERY, xp)
     }

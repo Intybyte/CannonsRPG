@@ -2,6 +2,7 @@ package me.vaan.cannonsRPG
 
 import dev.aurelium.auraskills.api.AuraSkillsApi
 import dev.aurelium.auraskills.api.registry.NamespacedRegistry
+import me.vaan.CooldownManager
 import me.vaan.cannonsRPG.auraSkills.CannonAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
@@ -16,8 +17,8 @@ import me.vaan.cannonsRPG.auraSkills.sources.AimingSource
 import me.vaan.cannonsRPG.auraSkills.sources.CannonDamageSource
 import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.auraSkills.sources.GunpowderSource
-import me.vaan.cannonsRPG.utils.Cooldowns
 import me.vaan.cannonsRPG.utils.Storage
+import me.vaan.interfaces.SimpleDebugger
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.logging.Logger
@@ -25,7 +26,7 @@ import java.util.logging.Logger
 
 class CannonsRPG : JavaPlugin() {
 
-    companion object {
+    companion object StaticStuff : SimpleDebugger {
         @JvmStatic
         private lateinit var auraSkills: AuraSkillsApi
         @JvmStatic
@@ -36,6 +37,8 @@ class CannonsRPG : JavaPlugin() {
         private lateinit var log: Logger
         @JvmStatic
         private var debug: Boolean = false
+        @JvmStatic
+        private lateinit var cooldownManager: CooldownManager<String>
 
         fun instance(): CannonsRPG {
             return instance
@@ -45,9 +48,13 @@ class CannonsRPG : JavaPlugin() {
             return registry
         }
 
-        fun debug(str: String) {
+        fun cooldown(): CooldownManager<String> {
+            return cooldownManager
+        }
+
+        override fun debug(s: String) {
             if (debug)
-                log.info(str)
+                log.info(s)
         }
 
         fun logger(): Logger {
@@ -106,11 +113,12 @@ class CannonsRPG : JavaPlugin() {
 
     private fun registerListeners() {
         val pm = this.server.pluginManager
-        Cooldowns.setCooldown(GunpowderLeveler::class,config.getInt("cooldowns.gunpowder_leveler", 10) * 1000L)
-        Cooldowns.setCooldown(AimingLeveler::class,config.getInt("cooldowns.aiming_leveler", 30) * 1000L)
-        Cooldowns.setCooldown(FiringLeveler::class,config.getInt("cooldowns.firing_leveler", 5) * 1000L)
-        Cooldowns.setCooldown(CannonDamageLeveler::class, config.getInt("cooldowns.damage_leveler", 0) * 1000L)
-        Cooldowns.printAllCooldowns()
+        cooldownManager = CooldownManager(StaticStuff)
+        cooldownManager.setCooldown("GunpowderLeveler",config.getInt("cooldowns.gunpowder_leveler", 10) * 1000L)
+        cooldownManager.setCooldown("AimingLeveler",config.getInt("cooldowns.aiming_leveler", 30) * 1000L)
+        cooldownManager.setCooldown("FiringLeveler",config.getInt("cooldowns.firing_leveler", 5) * 1000L)
+        cooldownManager.setCooldown("CannonDamageLeveler", config.getInt("cooldowns.damage_leveler", 0) * 1000L)
+        cooldownManager.printAllCooldowns()
 
         pm.registerEvents(GunpowderLeveler(auraSkills), this)
         pm.registerEvents(AimingLeveler(auraSkills), this)
