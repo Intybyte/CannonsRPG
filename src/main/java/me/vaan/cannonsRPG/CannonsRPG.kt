@@ -21,6 +21,7 @@ import me.vaan.cannonsRPG.utils.Storage
 import me.vaan.interfaces.SimpleDebugger
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
+import java.io.File
 import java.util.logging.Logger
 
 
@@ -79,13 +80,18 @@ class CannonsRPG : JavaPlugin() {
     }
 
     private fun saveResources() {
-        saveResource("sources/gunnery.yml", false)
-        saveResource("rewards/gunnery.yml", false)
-        saveResource("abilities.yml", false)
-        saveResource("skills.yml", false)
-        saveResource("mana_abilities.yml", false)
-        saveResource("config.yml", false)
+        genResource("sources/gunnery.yml")
+        genResource("rewards/gunnery.yml")
+        genResource("abilities.yml")
+        genResource("skills.yml")
+        genResource("mana_abilities.yml")
+        genResource("config.yml")
         debug = config.getBoolean("debug")
+    }
+
+    private fun genResource(path: String) {
+        val configFile = File(dataFolder, path)
+        if (!configFile.exists()) saveResource(path, false)
     }
 
     private fun registerSourceTypes() {
