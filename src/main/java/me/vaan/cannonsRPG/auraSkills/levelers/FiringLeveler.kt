@@ -23,7 +23,7 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
 
         CannonAbilities.DOUBLE_SHOT.callHandler(bukkitPlayer, event.cannon)
 
-        if (!CannonsRPG.cooldown().check("FiringLeveler", bukkitPlayer.name)) return
+        if (!CannonsRPG.cooldownManager.check("FiringLeveler", bukkitPlayer.name)) return
 
         val firingSource = Utils.firstSource<FiringSource>()
         val xp = firingSource.xp * firingSource.getMultiplier()

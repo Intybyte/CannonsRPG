@@ -85,7 +85,7 @@ enum class CannonAbilities(val ability: CustomAbility, private val handler: Abil
 
     companion object {
         fun loadAbilities() {
-            val reg = CannonsRPG.registry()
+            val reg = CannonsRPG.registry
             entries.forEach { abilityEnum ->
                 reg.registerAbility(abilityEnum.ability)
             }

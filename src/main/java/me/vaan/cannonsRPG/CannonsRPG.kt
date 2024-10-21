@@ -28,38 +28,27 @@ import java.util.logging.Logger
 class CannonsRPG : JavaPlugin() {
 
     companion object StaticStuff : SimpleDebugger {
-        @JvmStatic
-        private lateinit var auraSkills: AuraSkillsApi
-        @JvmStatic
-        private lateinit var instance: CannonsRPG
-        @JvmStatic
-        private lateinit var registry: NamespacedRegistry
-        @JvmStatic
-        private lateinit var log: Logger
-        @JvmStatic
-        private var debug: Boolean = false
-        @JvmStatic
-        private lateinit var cooldownManager: CooldownManager<String>
+        lateinit var auraSkills: AuraSkillsApi
+            private set
 
-        fun instance(): CannonsRPG {
-            return instance
-        }
+        lateinit var instance: CannonsRPG
+            private set
 
-        fun registry(): NamespacedRegistry {
-            return registry
-        }
+        lateinit var registry: NamespacedRegistry
+            private set
 
-        fun cooldown(): CooldownManager<String> {
-            return cooldownManager
-        }
+        lateinit var log: Logger
+            private set
+
+        var debug: Boolean = false
+            private set
+
+        lateinit var cooldownManager: CooldownManager<String>
+            private set
 
         override fun debug(s: String) {
             if (debug)
                 log.info(s)
-        }
-
-        fun logger(): Logger {
-            return log
         }
     }
 

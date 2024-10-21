@@ -25,7 +25,7 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
         val skillPlayer = api.getUser(player)
         CannonAbilities.SHELL_MASTERY.callHandler(bukkitPlayer, event)
 
-        if (!CannonsRPG.cooldown().check("CannonDamageLeveler", bukkitPlayer.name)) return
+        if (!CannonsRPG.cooldownManager.check("CannonDamageLeveler", bukkitPlayer.name)) return
         val firingSource = Utils.firstSource<CannonDamageSource>()
         var xp = firingSource.xp * event.damage * event.reduction
 

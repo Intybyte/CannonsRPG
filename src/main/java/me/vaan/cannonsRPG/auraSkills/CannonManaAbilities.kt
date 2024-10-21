@@ -20,7 +20,7 @@ object CannonManaAbilities {
         .build()!!
 
     fun loadManaAbilities() {
-        val reg = CannonsRPG.registry()
+        val reg = CannonsRPG.registry
         reg.registerManaAbility(STORM_BLAST)
     }
 }

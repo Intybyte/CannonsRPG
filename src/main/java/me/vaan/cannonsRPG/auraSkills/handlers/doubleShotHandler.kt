@@ -31,7 +31,7 @@ fun doubleShotHandler(ability: CustomAbility, player: Player, array: Array<out A
         override fun run() {
             fire(proj, player, cannon, ProjectileCause.PlayerFired)
         }
-    }.runTaskLater(CannonsRPG.instance(), 40L + (proj.automaticFiringDelay).toLong() * 20L)
+    }.runTaskLater(CannonsRPG.instance, 40L + (proj.automaticFiringDelay).toLong() * 20L)
 }
 
 private fun fire(projectile: at.pavlov.cannons.projectile.Projectile, onlinePlayer: Player, cannon: Cannon, projectileCause: ProjectileCause) {
