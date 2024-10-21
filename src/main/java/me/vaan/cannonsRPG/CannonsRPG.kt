@@ -75,6 +75,7 @@ class CannonsRPG : JavaPlugin() {
         registry.registerSkill(CannonSkill.GUNNERY)
 
         registerSourceTypes()
+        registerCooldowns()
         registerListeners()
         Metrics(this,23294)
     }
@@ -117,14 +118,18 @@ class CannonsRPG : JavaPlugin() {
         }
     }
 
-    private fun registerListeners() {
-        val pm = this.server.pluginManager
+    private fun registerCooldowns() {
         cooldownManager = CooldownManager(StaticStuff)
         cooldownManager.setCooldown("GunpowderLeveler",config.getInt("cooldowns.gunpowder_leveler", 10) * 1000L)
         cooldownManager.setCooldown("AimingLeveler",config.getInt("cooldowns.aiming_leveler", 30) * 1000L)
         cooldownManager.setCooldown("FiringLeveler",config.getInt("cooldowns.firing_leveler", 5) * 1000L)
         cooldownManager.setCooldown("CannonDamageLeveler", config.getInt("cooldowns.damage_leveler", 0) * 1000L)
+
         cooldownManager.printAllCooldowns()
+    }
+
+    private fun registerListeners() {
+        val pm = this.server.pluginManager
 
         pm.registerEvents(GunpowderLeveler(auraSkills), this)
         pm.registerEvents(AimingLeveler(auraSkills), this)
