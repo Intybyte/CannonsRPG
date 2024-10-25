@@ -8,6 +8,7 @@ import dev.aurelium.auraskills.api.ability.CustomAbility
 import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.utils.Storage
 import me.vaan.cannonsRPG.utils.Utils
+import me.vaan.cannonsRPG.utils.failsChecks
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile
@@ -17,7 +18,7 @@ import org.bukkit.util.Vector
 import kotlin.math.max
 
 fun doubleShotHandler(ability: CustomAbility, player: Player, array: Array<out Any>?) {
-    if (!ability.isEnabled) return
+    if (ability.failsChecks(player)) return
     val percentage = Utils.getSkillValue(player, ability) / 100.0
 
     if (Math.random() > percentage) return

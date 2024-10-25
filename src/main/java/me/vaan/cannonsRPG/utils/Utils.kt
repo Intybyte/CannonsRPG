@@ -1,14 +1,17 @@
 package me.vaan.cannonsRPG.utils
 
 import dev.aurelium.auraskills.api.AuraSkillsApi
+import dev.aurelium.auraskills.api.ability.AbilityContext
 import dev.aurelium.auraskills.api.ability.CustomAbility
 import dev.aurelium.auraskills.api.source.XpSource
+import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import org.bukkit.entity.Player
 import kotlin.reflect.KClass
 
 object Utils {
     val sourceMap = HashMap<KClass<out XpSource>, XpSource>()
+    val abilityContext = AbilityContext(CannonsRPG.auraSkills)
 
     inline fun <reified T : XpSource> firstSource(): T {
         return sourceMap.getOrPut(T::class) {
