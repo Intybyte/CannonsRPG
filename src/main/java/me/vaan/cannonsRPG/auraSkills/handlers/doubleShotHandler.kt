@@ -43,7 +43,7 @@ private fun fire(projectile: at.pavlov.cannons.projectile.Projectile, onlinePlay
 
         val vect: Vector = cannon.getFiringVector(true, true)
 
-       ProjectileManager.getInstance().spawnProjectile(
+        ProjectileManager.getInstance().spawnProjectile(
             projectile,
             onlinePlayer.uniqueId,
             source,
