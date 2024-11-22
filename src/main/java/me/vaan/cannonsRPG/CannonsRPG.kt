@@ -28,6 +28,8 @@ import java.util.logging.Logger
 class CannonsRPG : JavaPlugin() {
 
     companion object StaticStuff : SimpleDebugger {
+        val messages = HashMap<String, String>()
+
         lateinit var auraSkills: AuraSkillsApi
             private set
 
@@ -77,6 +79,12 @@ class CannonsRPG : JavaPlugin() {
         genResource("mana_abilities.yml")
         genResource("config.yml")
         debug = config.getBoolean("debug")
+
+        val entries = config.getConfigurationSection("messages")
+        entries ?: throw RuntimeException("No messages entries found: maybe you are using an old config, delete it to generate a new one")
+        for (message in entries.getValues(false)) {
+            messages[message.key] = message.value as String
+        }
     }
 
     private fun genResource(path: String) {

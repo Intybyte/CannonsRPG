@@ -1,6 +1,7 @@
 package me.vaan.cannonsRPG.auraSkills.manaSkill
 
 import dev.aurelium.auraskills.api.AuraSkillsApi
+import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.utils.Storage
@@ -30,7 +31,7 @@ class StormBlastToggler(private val api: AuraSkillsApi) : Listener {
         if (level == 0) return
 
         activatedStormBlast[player.name] = !(activatedStormBlast[player.name] ?: false)
-        player.sendMessage(Storage.PREFIX + "§7Storm Blast is now " + if(activatedStormBlast[player.name]!!) "enabled" else "disabled")
+        val status = if(activatedStormBlast[player.name]!!) "enabled" else "disabled"
+        player.sendMessage(CannonsRPG.messages["prefix"] + CannonsRPG.messages["storm_blast"]!!.format(status))
     }
-
 }

@@ -1,12 +1,11 @@
 package me.vaan.cannonsRPG.auraSkills.handlers
 
-import at.pavlov.cannons.Cannons
 import at.pavlov.cannons.Enum.ProjectileCause
 import at.pavlov.cannons.cannon.Cannon
+import at.pavlov.cannons.projectile.ProjectileManager
 import at.pavlov.cannons.projectile.ProjectileProperties
 import dev.aurelium.auraskills.api.ability.CustomAbility
 import me.vaan.cannonsRPG.CannonsRPG
-import me.vaan.cannonsRPG.utils.Storage
 import me.vaan.cannonsRPG.utils.Utils
 import me.vaan.cannonsRPG.utils.failsChecks
 import org.bukkit.Location
@@ -26,16 +25,16 @@ fun doubleShotHandler(ability: CustomAbility, player: Player, array: Array<out A
     val cannon = array!![0] as Cannon
     val proj = cannon.loadedProjectile
 
-    player.sendMessage(Storage.PREFIX + "Double shot activated!")
+    player.sendMessage(CannonsRPG.messages["prefix"] + CannonsRPG.messages["double_shot"])
 
     object : BukkitRunnable() {
         override fun run() {
-            fire(proj, player, cannon, ProjectileCause.PlayerFired)
+            fire(proj, player, cannon)
         }
     }.runTaskLater(CannonsRPG.instance, 40L + (proj.automaticFiringDelay).toLong() * 20L)
 }
 
-private fun fire(projectile: at.pavlov.cannons.projectile.Projectile, onlinePlayer: Player, cannon: Cannon, projectileCause: ProjectileCause) {
+private fun fire(projectile: at.pavlov.cannons.projectile.Projectile, onlinePlayer: Player, cannon: Cannon) {
     //get firing location
     val firingLoc: Location = cannon.cannonDesign.getMuzzle(cannon)
     //for each bullet, but at least once
@@ -45,7 +44,7 @@ private fun fire(projectile: at.pavlov.cannons.projectile.Projectile, onlinePlay
 
         val vect: Vector = cannon.getFiringVector(true, true)
 
-        val projectileEntity: Projectile = Cannons.getPlugin().projectileManager.spawnProjectile(
+        val projectileEntity: Projectile = ProjectileManager.getInstance().spawnProjectile(
             projectile,
             onlinePlayer.uniqueId,
             source,
@@ -53,11 +52,7 @@ private fun fire(projectile: at.pavlov.cannons.projectile.Projectile, onlinePlay
             firingLoc,
             vect,
             cannon.uid,
-            projectileCause
-        )
-
-        if (i == 0 && projectile.hasProperty(ProjectileProperties.SHOOTER_AS_PASSENGER)) projectileEntity.setPassenger(
-            onlinePlayer
+            ProjectileCause.PlayerFired
         )
     }
 }

@@ -1,5 +1,10 @@
 debug: false
 
+messages:
+  prefix: "§6[§fCannons§bRPG§6]§f "
+  storm_blast: "§7Storm Blast is now %s"
+  double_shot: "Double shot activated!"
+
 cooldowns:
   gunpowder_leveler: 10
   aiming_leveler: 30
