@@ -4,7 +4,6 @@ import dev.aurelium.auraskills.api.AuraSkillsApi
 import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
-import me.vaan.cannonsRPG.utils.Storage
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

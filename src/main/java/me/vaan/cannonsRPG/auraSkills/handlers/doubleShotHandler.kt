@@ -3,7 +3,6 @@ package me.vaan.cannonsRPG.auraSkills.handlers
 import at.pavlov.cannons.Enum.ProjectileCause
 import at.pavlov.cannons.cannon.Cannon
 import at.pavlov.cannons.projectile.ProjectileManager
-import at.pavlov.cannons.projectile.ProjectileProperties
 import dev.aurelium.auraskills.api.ability.CustomAbility
 import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.utils.Utils
@@ -44,7 +43,7 @@ private fun fire(projectile: at.pavlov.cannons.projectile.Projectile, onlinePlay
 
         val vect: Vector = cannon.getFiringVector(true, true)
 
-        val projectileEntity: Projectile = ProjectileManager.getInstance().spawnProjectile(
+       ProjectileManager.getInstance().spawnProjectile(
             projectile,
             onlinePlayer.uniqueId,
             source,
