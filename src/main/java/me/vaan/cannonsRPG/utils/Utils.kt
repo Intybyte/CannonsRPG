@@ -7,6 +7,7 @@ import dev.aurelium.auraskills.api.source.XpSource
 import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import org.bukkit.entity.Player
+import org.bukkit.event.block.Action
 import kotlin.reflect.KClass
 
 object Utils {
@@ -26,4 +27,14 @@ object Utils {
 
         return ability.getValue(level)
     }
+
+    val Action.isLeftClick : Boolean get()  {
+        return this == Action.LEFT_CLICK_AIR || this == Action.LEFT_CLICK_BLOCK
+    }
+
+    val Action.isRightClick : Boolean get()  {
+        return this == Action.RIGHT_CLICK_AIR || this == Action.RIGHT_CLICK_BLOCK
+    }
+
+
 }

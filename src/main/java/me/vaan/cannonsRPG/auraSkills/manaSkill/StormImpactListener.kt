@@ -7,6 +7,7 @@ import dev.aurelium.auraskills.api.event.mana.ManaAbilityActivateEvent
 import me.vaan.cannonsRPG.auraSkills.CannonManaAbilities
 import org.bukkit.Bukkit
 import org.bukkit.entity.HumanEntity
+import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -27,17 +28,19 @@ class StormImpactListener(private val api: AuraSkillsApi) : Listener {
         val skillDamage = CannonManaAbilities.STORM_BLAST.getValue(level)
 
         val impact = event.impactLocation
-        val entityList = impact.getNearbyLivingEntities(5.0,20.0,5.0)
+        val entityList = impact.world?.getNearbyEntities(impact, 5.0, 20.0, 5.0)
+        entityList ?: return
         if (entityList.isEmpty()) return
+        val livingEntityList = entityList.mapNotNull { it as? LivingEntity }
 
         if (!skillPlayer.consumeMana(manaCost)) return
 
         val callEvent = ManaAbilityActivateEvent(player, skillPlayer, CannonManaAbilities.STORM_BLAST, 0, manaCost)
         Bukkit.getServer().pluginManager.callEvent(callEvent)
 
-        impact.world.strikeLightningEffect(impact)
+        impact.world?.strikeLightningEffect(impact)
 
-        for (entity in entityList) {
+        for (entity in livingEntityList) {
             val damage: Double
             if (entity is HumanEntity) {
                 ArmorCalculationUtil.reduceArmorDurability(entity)
