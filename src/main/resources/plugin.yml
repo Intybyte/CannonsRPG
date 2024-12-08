@@ -1,5 +1,5 @@
 name: CannonsRPG
-version: '1.0.0'
 main: me.vaan.cannonsRPG.CannonsRPG
-api-version: '1.21'
+version: ${version}
+api-version: '1.16'
 depend: ["Cannons", "AuraSkills"]
