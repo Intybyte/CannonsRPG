@@ -29,3 +29,10 @@ sources:
     display_name: "Deal Damage with Cannons"
     menu_item:
       material: iron_sword
+  killing_player:
+    type: cannonsrpg/kill
+    entity_type: PLAYER # these are all valid: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+    xp: 200
+    display_name: "Kill players with Cannons"
+    menu_item:
+      material: diamond_sword

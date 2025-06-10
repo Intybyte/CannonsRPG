@@ -15,11 +15,13 @@ import me.vaan.cannonsRPG.auraSkills.levelers.GunpowderLeveler
 import me.vaan.cannonsRPG.auraSkills.manaSkill.StormImpactListener
 import me.vaan.cannonsRPG.auraSkills.sources.AimingSource
 import me.vaan.cannonsRPG.auraSkills.sources.CannonDamageSource
+import me.vaan.cannonsRPG.auraSkills.sources.CannonKillSource
 import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.auraSkills.sources.GunpowderSource
 import me.vaan.cannonsRPG.utils.Storage
 import me.vaan.interfaces.SimpleDebugger
 import org.bstats.bukkit.Metrics
+import org.bukkit.entity.EntityType
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.logging.Logger
@@ -113,6 +115,12 @@ class CannonsRPG : JavaPlugin() {
             val directMultiplier = source.node("direct_multiplier").getDouble(1.0)
             CannonDamageSource(context.parseValues(source), explosionMultiplier, directMultiplier)
         }
+
+        registry.registerSourceType("kill") { source, context ->
+            val typeString = source.node("entity_type").string?.uppercase() ?: "PLAYER"
+            val type = EntityType.valueOf(typeString)
+            CannonKillSource(context.parseValues(source), type)
+        }
     }
 
     private fun registerCooldowns() {
@@ -121,6 +129,7 @@ class CannonsRPG : JavaPlugin() {
         cooldownManager.setCooldown("AimingLeveler",config.getInt("cooldowns.aiming_leveler", 30) * 1000L)
         cooldownManager.setCooldown("FiringLeveler",config.getInt("cooldowns.firing_leveler", 5) * 1000L)
         cooldownManager.setCooldown("CannonDamageLeveler", config.getInt("cooldowns.damage_leveler", 0) * 1000L)
+        cooldownManager.setCooldown("CannonKillLeveler", config.getInt("cooldowns.kill_leveler", 0) * 1000L)
 
         cooldownManager.printAllCooldowns()
     }

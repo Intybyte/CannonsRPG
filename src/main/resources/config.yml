@@ -10,3 +10,4 @@ cooldowns:
   aiming_leveler: 30
   firing_leveler: 5
   damage_leveler: 0
+  kill_leveler: 0
