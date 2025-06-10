@@ -10,6 +10,7 @@ import me.vaan.cannonsRPG.auraSkills.CannonFireRefund
 import me.vaan.cannonsRPG.auraSkills.manaSkill.StormBlastToggler
 import me.vaan.cannonsRPG.auraSkills.levelers.AimingLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.CannonDamageLeveler
+import me.vaan.cannonsRPG.auraSkills.levelers.CannonKillLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.FiringLeveler
 import me.vaan.cannonsRPG.auraSkills.levelers.GunpowderLeveler
 import me.vaan.cannonsRPG.auraSkills.manaSkill.StormImpactListener
@@ -141,6 +142,7 @@ class CannonsRPG : JavaPlugin() {
         pm.registerEvents(AimingLeveler(auraSkills), this)
         pm.registerEvents(FiringLeveler(auraSkills), this)
         pm.registerEvents(CannonDamageLeveler(auraSkills), this)
+        pm.registerEvents(CannonKillLeveler(auraSkills), this)
 
         pm.registerEvents(CannonFireRefund(auraSkills), this)
 
