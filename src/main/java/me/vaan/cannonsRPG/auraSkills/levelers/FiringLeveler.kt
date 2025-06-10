@@ -4,7 +4,6 @@ import at.pavlov.cannons.event.CannonFireEvent
 import dev.aurelium.auraskills.api.AuraSkillsApi
 import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonAbilities
-import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.sources.FiringSource
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.Bukkit
@@ -15,7 +14,6 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
 
     @EventHandler
     fun onFire(event: CannonFireEvent) {
-        if(!CannonSkill.GUNNERY.isEnabled) return
         val player = event.player
         val bukkitPlayer = Bukkit.getPlayer(player) ?: return
 
@@ -25,8 +23,14 @@ class FiringLeveler(private val api: AuraSkillsApi) : Listener {
 
         if (!CannonsRPG.cooldownManager.check("FiringLeveler", bukkitPlayer.name)) return
 
-        val firingSource = Utils.firstSource<FiringSource>()
-        val xp = firingSource.xp * firingSource.getMultiplier()
-        skillPlayer.addSkillXp(CannonSkill.GUNNERY, xp)
+        val firingSkillSources = Utils.source<FiringSource>()
+        for (skillSource in firingSkillSources) {
+            val source = skillSource.source()
+            val skill = skillSource.skill()
+            if (!skill.isEnabled) continue
+
+            val xp = source.xp * source.getMultiplier()
+            skillPlayer.addSkillXp(skill, xp)
+        }
     }
 }

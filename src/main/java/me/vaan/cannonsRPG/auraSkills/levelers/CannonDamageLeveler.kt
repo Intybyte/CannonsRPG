@@ -5,7 +5,6 @@ import at.pavlov.cannons.event.CannonDamageEvent
 import dev.aurelium.auraskills.api.AuraSkillsApi
 import me.vaan.cannonsRPG.CannonsRPG
 import me.vaan.cannonsRPG.auraSkills.CannonAbilities
-import me.vaan.cannonsRPG.auraSkills.CannonSkill
 import me.vaan.cannonsRPG.auraSkills.sources.CannonDamageSource
 import me.vaan.cannonsRPG.utils.Utils
 import org.bukkit.Bukkit
@@ -17,7 +16,6 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
     @EventHandler
     fun onFire(event: CannonDamageEvent) {
         val player = event.cannonball.shooterUID
-        if (!CannonSkill.GUNNERY.isEnabled) return
         val bukkitPlayer = Bukkit.getPlayer(player) ?: return
 
         CannonAbilities.IMPACT_RESISTANCE.callHandler(bukkitPlayer, event)
@@ -26,15 +24,22 @@ class CannonDamageLeveler(private val api: AuraSkillsApi) : Listener {
         CannonAbilities.SHELL_MASTERY.callHandler(bukkitPlayer, event)
 
         if (!CannonsRPG.cooldownManager.check("CannonDamageLeveler", bukkitPlayer.name)) return
-        val firingSource = Utils.firstSource<CannonDamageSource>()
-        var xp = firingSource.xp * event.damage * event.reduction
 
-        xp *= when (event.type) {
-            DamageType.DIRECT -> firingSource.getDirectMultiplier()
-            DamageType.EXPLOSION -> firingSource.getExplosionMultiplier()
-            else -> 1.0
+        val firingSkillSources = Utils.source<CannonDamageSource>()
+        for (skillSource in firingSkillSources) {
+            val source = skillSource.source()
+            val skill = skillSource.skill()
+            if (!skill.isEnabled) continue
+
+            var xp = source.xp * event.damage * event.reduction
+
+            xp *= when (event.type) {
+                DamageType.DIRECT -> source.getDirectMultiplier()
+                DamageType.EXPLOSION -> source.getExplosionMultiplier()
+                else -> 1.0
+            }
+
+            skillPlayer.addSkillXp(skill, xp)
         }
-
-        skillPlayer.addSkillXp(CannonSkill.GUNNERY, xp)
     }
 }
